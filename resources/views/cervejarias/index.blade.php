@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.app')
 @section('content')
 
 <div class="row pb-4">
