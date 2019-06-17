@@ -34,15 +34,24 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                     @if(Auth::check())    
+                        @can('cervejarias.index')
                         <li class="nav-item {{Route::current()->uri == 'cervejarias' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('cervejarias.index') }}">Cervejarias <span class="sr-only">(current)</span></a>
                         </li>
+                        @endcan
+                        @can('cervejas.index')
                         <li class="nav-item {{Route::current()->uri == 'cervejas' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('cervejas.index') }}">Cervejas</a>
                         </li>
+                        @endcan
                         <li class="nav-item {{Route::current()->uri == 'ingredientes' ? 'active' : '' }}">
                             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Ingredientes</a>
                         </li>
+                        @can('permissoes.index')
+                        <li class="nav-item {{Route::current()->uri == 'permisssoes' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('permissoes.index') }}">Permissões</a>
+                        </li>
+                        @endcan
                     @endif
                     </ul>
 

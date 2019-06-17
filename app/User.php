@@ -36,4 +36,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    /* Retorna todas as permissões desse usuário */
+    public function permissoes() {
+        return $this->belongsToMany('App\Permissao', 'users_permissoes', 'user_id', 'permissao_id');
+    }
+
+
+    public function hasPermission($p) {
+        return (bool) $this->permissoes()->where('slug', strtoupper($p))->count();
+    }
+
+
+
+
+    
+
+
+
 }

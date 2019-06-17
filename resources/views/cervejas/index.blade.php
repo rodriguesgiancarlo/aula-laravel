@@ -6,7 +6,9 @@
 </div>
 
 <div class="row">
+    @can('cervejas.create')
     <a href="{{ route('cervejas.create') }}" class="btn btn-success">Nova cerveja</a>
+    @endcan
 </div>
 
 <div class="row pt-2">
@@ -24,14 +26,18 @@
                     <td>{{ $cerveja->nome }}</td>
                     <td>{{ $cerveja->cervejaria->nome }}</td>
                     <td>
-                        <a class="btn btn-sm btn-primary" href="{{ route('cervejas.edit', $cerveja->id) }}">Alterar</a>
+                        @can('cervejas.edit')
+                            <a class="btn btn-sm btn-primary" href="{{ route('cervejas.edit', $cerveja->id) }}">Alterar</a>
+                        @endcan
                     </td>
                     <td>
+                        @can('cervejas.edit')
                         <form action="{{ route('cervejas.destroy', $cerveja->id) }}" method="post">
                             @method('DELETE')
                             @csrf
                             <button type="submit" class="btn btn-sm btn-danger">Remover</button>
                         </form>
+                        @endcan
                     </td>
                 </tr>
             @endforeach

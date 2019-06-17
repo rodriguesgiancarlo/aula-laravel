@@ -17,16 +17,22 @@ Route::get('/', function () {
     return view('welcome', compact(['msg', 'pessoas']));
 });
 
-Route::get('/cervejarias', 'CervejariaController@index')->name('cervejarias.index')->middleware('auth');
-Route::get('/cervejarias/{cervejaria_id}/show', 'CervejariaController@show')->name('cervejarias.show')->middleware('auth');
-Route::get('/cervejarias/create', 'CervejariaController@create')->name('cervejarias.create')->middleware('auth');
-Route::post('/cervejarias', 'CervejariaController@store')->name('cervejarias.store')->middleware('auth');
-Route::get('/cervejarias/{cervejaria_id}/edit', 'CervejariaController@edit')->name('cervejarias.edit')->middleware('auth');
-Route::put('/cervejarias/{cervejaria_id}', 'CervejariaController@update')->name('cervejarias.update')->middleware('auth');
-Route::delete('/cervejarias/{cervejaria_id}', 'CervejariaController@destroy')->name('cervejarias.destroy')->middleware('auth');
+// todas as rotas dentro desse grupo usarão o middleware auth
+Route::middleware(['auth'])->group(function() {
 
+    Route::get('/cervejarias', 'CervejariaController@index')->name('cervejarias.index');
+    Route::get('/cervejarias/{cervejaria_id}/show', 'CervejariaController@show')->name('cervejarias.show');
+    Route::get('/cervejarias/create', 'CervejariaController@create')->name('cervejarias.create');
+    Route::post('/cervejarias', 'CervejariaController@store')->name('cervejarias.store');
+    Route::get('/cervejarias/{cervejaria_id}/edit', 'CervejariaController@edit')->name('cervejarias.edit');
+    Route::put('/cervejarias/{cervejaria_id}', 'CervejariaController@update')->name('cervejarias.update');
+    Route::delete('/cervejarias/{cervejaria_id}', 'CervejariaController@destroy')->name('cervejarias.destroy');
 
-Route::resource('cervejas', 'CervejaController', ['except' => array('show')])->middleware('auth');;
+    Route::resource('cervejas', 'CervejaController', ['except' => array('show')]);
+    Route::resource('permissoes', 'PermissaoController', ['except' => array('show')]);
+
+});
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');;
+

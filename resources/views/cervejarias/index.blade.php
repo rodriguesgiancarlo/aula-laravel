@@ -6,7 +6,9 @@
 </div>
 
 <div class="row">
+    @can('cervejarias.create')
     <a href="{{ route('cervejarias.create') }}" class="btn btn-success">Nova cervejaria</a>
+    @endcan
 </div>
 
 <div class="row pt-2">
